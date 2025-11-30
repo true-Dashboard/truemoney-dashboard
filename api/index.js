@@ -170,16 +170,16 @@ app.post('/api/webhook/truemoney', async (req, res) => {
         amount = amount / 100; // Convert Satang to Baht
 
         // --- VALIDATION CHECK ---
-        // Reject if amount is 0 or invalid, or sender is missing.
+        // Relaxed Validation: Return 200 OK for invalid data (Handshake) but don't save.
         if (amount <= 0 || isNaN(amount)) {
-            console.warn('Blocked Invalid Transaction: Amount is 0 or invalid');
-            return res.status(400).send({ status: 'error', message: 'Invalid Amount' });
+            console.warn('Received Handshake/Invalid Payload (Amount 0). Responding 200 OK to satisfy TrueMoney check.');
+            return res.status(200).send({ status: 'ignored', message: 'Invalid Amount (Handshake)' });
         }
         
         const sender = transactionData.sender_mobile || transactionData.payer_mobile;
         if (!sender) {
-             console.warn('Blocked Invalid Transaction: Missing sender');
-             return res.status(400).send({ status: 'error', message: 'Missing Sender' });
+             console.warn('Received Handshake/Invalid Payload (Missing Sender). Responding 200 OK to satisfy TrueMoney check.');
+             return res.status(200).send({ status: 'ignored', message: 'Missing Sender (Handshake)' });
         }
 
         const newTransaction = {
