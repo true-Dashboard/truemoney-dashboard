@@ -139,6 +139,30 @@ app.use(async (req, res, next) => {
     next();
 });
 
+// Site Status (Public - used by frontend before render)
+app.get('/api/status', async (req, res) => {
+    let maintenance = false;
+    if (isDbConnected()) {
+        const setting = await SettingsModel.findOne({ key: 'maintenance_mode' });
+        maintenance = setting?.value === 'true';
+    } else {
+        maintenance = memorySettings['maintenance_mode'] === 'true';
+    }
+    res.json({ maintenance, online: true });
+});
+
+// Toggle Maintenance Mode (Dev only via secret header)
+app.post('/api/maintenance', async (req, res) => {
+    const { enabled } = req.body;
+    const value = enabled ? 'true' : 'false';
+    if (isDbConnected()) {
+        await SettingsModel.findOneAndUpdate({ key: 'maintenance_mode' }, { value }, { upsert: true });
+    } else {
+        memorySettings['maintenance_mode'] = value;
+    }
+    res.json({ status: 'ok', maintenance: enabled });
+});
+
 // Webhook GET - Check Status
 app.get('/api/webhook/truemoney', (req, res) => {
     res.status(200).json({

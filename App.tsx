@@ -1,15 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import { User } from './types';
 import { updateUser } from './services/mockService';
-import { Lock, X } from 'lucide-react';
+import { Lock, X, ServerCrash } from 'lucide-react';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
+import { checkSiteStatus } from './services/apiService';
+
+function MaintenancePage() {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-[#0f1113] text-white select-none">
+      <div className="text-center space-y-6 p-8 max-w-md">
+        <div className="flex justify-center">
+          <div className="bg-red-500/10 p-6 rounded-3xl border border-red-500/20">
+            <ServerCrash size={64} className="text-red-500" strokeWidth={1.5} />
+          </div>
+        </div>
+        <div>
+          <p className="text-red-400 font-mono text-sm font-bold uppercase tracking-widest mb-2">502 Bad Gateway</p>
+          <h1 className="text-3xl font-bold text-gray-100 mb-3">Service Unavailable</h1>
+          <p className="text-gray-500 text-sm leading-relaxed">
+            ระบบปิดให้บริการชั่วคราว<br/>กรุณาลองใหม่อีกครั้งในภายหลัง
+          </p>
+        </div>
+        <div className="pt-2">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1E1F20] border border-[#444746] text-xs text-gray-500 font-mono">
+            <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+            TrueMoney Dashboard — Offline
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function AppContent() {
   const { t } = useLanguage();
+
+  // Check maintenance mode BEFORE rendering any content
+  const [siteStatus, setSiteStatus] = useState<'loading' | 'online' | 'maintenance'>('loading');
+
+  useEffect(() => {
+    checkSiteStatus().then(({ maintenance }) => {
+      setSiteStatus(maintenance ? 'maintenance' : 'online');
+    });
+  }, []);
+
   // Initialize user from LocalStorage for persistence
   const [user, setUser] = useState<User | null>(() => {
     try {
@@ -78,6 +116,18 @@ function AppContent() {
           setPasswordError('Error: ' + err.message);
       }
   };
+
+  if (siteStatus === 'loading') {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-[#0f1113]">
+        <div className="w-8 h-8 border-2 border-orange-500/30 border-t-orange-500 rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+
+  if (siteStatus === 'maintenance') {
+    return <MaintenancePage />;
+  }
 
   return (
     <div className="flex flex-col min-h-screen bg-[#353639]">

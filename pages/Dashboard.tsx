@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { Transaction, User } from '../types';
 import { fetchTransactions, simulateIncomingWebhook, clearAllData, getUsers, addUser, updateUser, deleteUser, updateTransactionStatusMock, deleteTransactionMock } from '../services/mockService';
-import { fetchLiveTransactions, triggerLiveWebhook, clearLiveTransactions, fetchUsersApi, addUserApi, updateUserApi, deleteUserApi, updateTransactionStatusApi, deleteTransactionApi } from '../services/apiService';
+import { fetchLiveTransactions, triggerLiveWebhook, clearLiveTransactions, fetchUsersApi, addUserApi, updateUserApi, deleteUserApi, updateTransactionStatusApi, deleteTransactionApi, toggleMaintenanceApi } from '../services/apiService';
 import { analyzeTransactions } from '../services/geminiService';
-import { RefreshCw, Sparkles, Server, Clipboard, Check, Clock, Power, Play, Code, Trash2, LayoutDashboard, Globe, Database, Users, Edit, Plus, X, Wallet, BellRing, History, Smartphone, LayoutGrid, ChevronLeft, ChevronRight, Search, FileSpreadsheet, Calculator, Calendar, Volume2, VolumeX, BarChart3, Tag, LockKeyhole } from 'lucide-react';
+import { RefreshCw, Sparkles, Server, Clipboard, Check, Clock, Power, Play, Code, Trash2, LayoutDashboard, Globe, Database, Users, Edit, Plus, X, Wallet, BellRing, History, Smartphone, LayoutGrid, ChevronLeft, ChevronRight, Search, FileSpreadsheet, Calculator, Calendar, Volume2, VolumeX, BarChart3, Tag, LockKeyhole, PowerOff } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 
@@ -74,6 +74,10 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
   // Database Status Check
   const [dbStatus, setDbStatus] = useState<string>('Checking...');
 
+  // Maintenance Mode State
+  const [maintenanceMode, setMaintenanceMode] = useState(false);
+  const [maintenanceLoading, setMaintenanceLoading] = useState(false);
+
   // User Management State
   const [usersList, setUsersList] = useState<User[]>([]);
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
@@ -113,6 +117,19 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
       document.addEventListener('click', handleClickOutside);
       return () => document.removeEventListener('click', handleClickOutside);
   }, [activeDropdown]);
+
+  const handleToggleMaintenance = async () => {
+      if (maintenanceLoading) return;
+      const next = !maintenanceMode;
+      if (!confirm(next ? 'ยืนยันปิดเว็บไซต์? ผู้ใช้จะเห็น 502 ทันที' : 'ยืนยันเปิดเว็บไซต์คืน?')) return;
+      setMaintenanceLoading(true);
+      try {
+          await toggleMaintenanceApi(next);
+          setMaintenanceMode(next);
+      } finally {
+          setMaintenanceLoading(false);
+      }
+  };
 
   const checkDbStatus = useCallback(async () => {
       try {
@@ -168,9 +185,12 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
       // Check DB status for both Dev and Admin
       if (isAdmin) {
           checkDbStatus();
-          // Fetch settings only for Dev (Admin shouldn't see token anymore)
-          if (isDev) fetchSettings(); 
-          const statusInterval = setInterval(checkDbStatus, 30000); 
+          if (isDev) {
+              fetchSettings();
+              // Load current maintenance state
+              fetch('/api/status').then(r => r.json()).then(d => setMaintenanceMode(d.maintenance)).catch(() => {});
+          }
+          const statusInterval = setInterval(checkDbStatus, 30000);
           return () => clearInterval(statusInterval);
       }
   }, [isAdmin, isDev, checkDbStatus, fetchSettings]);
@@ -1207,6 +1227,32 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
       {/* SERVICES TAB (Dev Only) */}
       {activeTab === 'services' && isDev && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+
+              {/* Shutdown / Maintenance Card */}
+              <div className={`bg-[#1E1F20] p-6 rounded-3xl border transition-all ${maintenanceMode ? 'border-red-500/50 bg-red-500/5' : 'border-[#444746] hover:border-red-500/30'}`}>
+                  <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-4 transition-colors ${maintenanceMode ? 'bg-red-500/20 border border-red-500/30' : 'bg-gray-700/30'}`}>
+                      <PowerOff className={maintenanceMode ? 'text-red-400' : 'text-gray-500'} size={24} />
+                  </div>
+                  <h3 className="font-bold text-gray-100 mb-1">Shutdown Web</h3>
+                  <p className="text-xs text-gray-500 mb-4">ปิดเว็บให้ผู้เยี่ยมชมเห็น 502 ทันที</p>
+                  <button
+                      onClick={handleToggleMaintenance}
+                      disabled={maintenanceLoading}
+                      className={`w-full px-3 py-2 rounded-xl text-xs font-bold border transition-all flex items-center justify-center gap-2 disabled:opacity-50 ${
+                          maintenanceMode
+                              ? 'bg-green-500/10 border-green-500/30 text-green-400 hover:bg-green-500/20'
+                              : 'bg-red-500/10 border-red-500/30 text-red-400 hover:bg-red-500/20'
+                      }`}
+                  >
+                      {maintenanceLoading ? (
+                          <span className="w-3 h-3 border border-current border-t-transparent rounded-full animate-spin" />
+                      ) : (
+                          <PowerOff size={14} />
+                      )}
+                      {maintenanceMode ? 'เปิดเว็บคืน' : 'ปิดเว็บ (502)'}
+                  </button>
+              </div>
+
               <div className="bg-[#1E1F20] p-6 rounded-3xl border border-[#444746] hover:border-orange-500/50 transition-all group">
                   <div className="w-12 h-12 rounded-full bg-orange-500/10 flex items-center justify-center mb-4 group-hover:bg-orange-500/20 transition-colors">
                       <BellRing className="text-orange-500" size={24} />

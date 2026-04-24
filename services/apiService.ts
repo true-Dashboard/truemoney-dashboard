@@ -94,3 +94,21 @@ export const deleteUserApi = async (id: string): Promise<void> => {
          throw new Error(err.error || 'Failed to delete user');
     }
 };
+
+export const checkSiteStatus = async (): Promise<{ maintenance: boolean }> => {
+    try {
+        const response = await fetch('/api/status');
+        if (!response.ok) return { maintenance: false };
+        return await response.json();
+    } catch {
+        return { maintenance: false };
+    }
+};
+
+export const toggleMaintenanceApi = async (enabled: boolean): Promise<void> => {
+    await fetch('/api/maintenance', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ enabled })
+    });
+};
