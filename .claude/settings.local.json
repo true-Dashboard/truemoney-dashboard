@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C \"d:/laragon/www/truemoney-dashboard\" remote -v)",
+      "Bash(git -C \"d:/laragon/www/truemoney-dashboard\" config --list)"
+    ]
+  }
+}
