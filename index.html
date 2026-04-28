@@ -7,13 +7,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
         theme: {
           extend: {
             fontFamily: {
-              sans: ['"Prompt"', 'sans-serif'],
+              sans: ['"Inter"', '"Prompt"', 'sans-serif'],
             },
             colors: {
               slate: {
@@ -22,10 +22,10 @@
                 950: '#020617',
               },
               primary: {
-                bg: '#353639',
-                card: '#1E1F20',
-                border: '#444746',
-                accent: '#F97316' // Orange
+                bg: '#09090b',
+                card: '#18181b',
+                border: '#27272a',
+                accent: '#f59e0b'
               }
             }
           },
@@ -50,7 +50,7 @@
 }
 </script>
 </head>
-  <body class="bg-[#353639] text-gray-200 antialiased min-h-screen overflow-y-auto font-sans">
+  <body class="bg-primary-bg text-gray-200 antialiased min-h-screen overflow-y-auto font-sans">
     <div id="root" class="h-full"></div>
     <script type="module" src="/index.tsx"></script>
   </body>

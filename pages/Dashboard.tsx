@@ -692,11 +692,11 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       
       {/* 1. Header Cards: Status & Actions */}
-      <div className="bg-[#1E1F20] p-6 rounded-3xl border border-[#444746] shadow-xl">
+      <div className="bg-primary-card p-6 rounded-2xl border border-primary-border shadow-xl">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 mb-6">
             <div>
                  <h2 className="text-2xl font-bold text-gray-100 flex items-center gap-3">
-                    <span className="bg-orange-500/10 p-2 rounded-xl border border-orange-500/20 text-orange-500">
+                    <span className="bg-primary-accent/10 p-2 rounded-xl border border-primary-accent/20 text-primary-accent">
                         <LayoutDashboard size={24} />
                     </span>
                     {t('tab_dashboard')}
@@ -708,14 +708,14 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
                  {/* Sound Toggle */}
                  <button 
                     onClick={toggleSound}
-                    className={`p-3 rounded-xl border transition-all ${soundEnabled ? 'bg-orange-500/10 border-orange-500/50 text-orange-400' : 'bg-[#2b2d30] border-[#444746] text-gray-500'}`}
+                    className={`p-3 rounded-xl border transition-all ${soundEnabled ? 'bg-primary-accent/10 border-primary-accent/50 text-amber-400' : 'bg-zinc-800 border-primary-border text-gray-500'}`}
                     title={soundEnabled ? t('sound_on') : t('sound_off')}
                  >
                     {soundEnabled ? <Volume2 size={20} /> : <VolumeX size={20} />}
                  </button>
 
                  {/* Refresh & Auto */}
-                 <div className="flex bg-[#2b2d30] rounded-xl p-1 border border-[#444746] w-full sm:w-auto">
+                 <div className="flex bg-zinc-800 rounded-xl p-1 border border-primary-border w-full sm:w-auto">
                      <button 
                         onClick={toggleAutoRefresh}
                         className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${isAutoRefresh ? 'bg-green-500/10 text-green-400 shadow-sm' : 'text-gray-400 hover:text-gray-200'}`}
@@ -745,7 +745,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
              }`}>
                  {dataSource === 'live' ? <Globe size={20} /> : <Database size={20} />}
                  <div className="flex flex-col items-start">
-                     <span className="text-xs font-bold uppercase tracking-wider opacity-70">{t('source')}</span>
+                     <span className="text-sm font-medium tracking-wider opacity-70">{t('source')}</span>
                      <span className="font-bold text-lg">
                         {dataSource === 'live' ? (walletPhone ? `API : ${walletPhone}` : t('live')) : t('mock')}
                      </span>
@@ -754,8 +754,8 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
 
              {/* Balance Card (Visible only to Dev/Admin) */}
              {isAdmin && (
-                 <div className="flex-1 flex items-center justify-center gap-4 px-6 py-4 rounded-2xl border border-[#444746] bg-[#2b2d30]">
-                     <div className="p-3 bg-orange-500/20 rounded-full text-orange-500 border border-orange-500/30">
+                 <div className="flex-1 flex items-center justify-center gap-4 px-6 py-4 rounded-2xl border border-primary-border bg-zinc-800">
+                     <div className="p-3 bg-primary-accent/20 rounded-full text-primary-accent border border-primary-accent/30">
                          <Wallet size={24} />
                      </div>
                      <div className="flex flex-col">
@@ -771,30 +771,30 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
 
       {/* 2. Navigation Tabs */}
       <div className="flex overflow-x-auto pb-2 gap-2 scrollbar-hide">
-        <button onClick={() => setActiveTab('dashboard')} className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold whitespace-nowrap transition-all ${activeTab === 'dashboard' ? 'bg-orange-600 text-white shadow-lg shadow-orange-900/50' : 'bg-[#1E1F20] text-gray-400 hover:bg-[#2b2d30] border border-[#444746]'}`}>
+        <button onClick={() => setActiveTab('dashboard')} className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold whitespace-nowrap transition-all ${activeTab === 'dashboard' ? 'bg-primary-accent text-white shadow-lg shadow-amber-900/50' : 'bg-primary-card text-gray-400 hover:bg-zinc-800 border border-primary-border'}`}>
             <LayoutDashboard size={16} /> {t('tab_dashboard')}
         </button>
         {/* Services: Dev Only */}
         {isDev && (
-            <button onClick={() => setActiveTab('services')} className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold whitespace-nowrap transition-all ${activeTab === 'services' ? 'bg-orange-600 text-white shadow-lg shadow-orange-900/50' : 'bg-[#1E1F20] text-gray-400 hover:bg-[#2b2d30] border border-[#444746]'}`}>
+            <button onClick={() => setActiveTab('services')} className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold whitespace-nowrap transition-all ${activeTab === 'services' ? 'bg-primary-accent text-white shadow-lg shadow-amber-900/50' : 'bg-primary-card text-gray-400 hover:bg-zinc-800 border border-primary-border'}`}>
                 <LayoutGrid size={16} /> {t('tab_services')}
             </button>
         )}
         {/* Reports: Admin/Dev Only */}
         {isAdmin && (
-            <button onClick={() => setActiveTab('reports')} className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold whitespace-nowrap transition-all ${activeTab === 'reports' ? 'bg-orange-600 text-white shadow-lg shadow-orange-900/50' : 'bg-[#1E1F20] text-gray-400 hover:bg-[#2b2d30] border border-[#444746]'}`}>
+            <button onClick={() => setActiveTab('reports')} className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold whitespace-nowrap transition-all ${activeTab === 'reports' ? 'bg-primary-accent text-white shadow-lg shadow-amber-900/50' : 'bg-primary-card text-gray-400 hover:bg-zinc-800 border border-primary-border'}`}>
                 <BarChart3 size={16} /> {t('tab_reports')}
             </button>
         )}
         {/* Users: Admin/Dev Only */}
         {isAdmin && (
-            <button onClick={() => setActiveTab('users')} className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold whitespace-nowrap transition-all ${activeTab === 'users' ? 'bg-orange-600 text-white shadow-lg shadow-orange-900/50' : 'bg-[#1E1F20] text-gray-400 hover:bg-[#2b2d30] border border-[#444746]'}`}>
+            <button onClick={() => setActiveTab('users')} className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold whitespace-nowrap transition-all ${activeTab === 'users' ? 'bg-primary-accent text-white shadow-lg shadow-amber-900/50' : 'bg-primary-card text-gray-400 hover:bg-zinc-800 border border-primary-border'}`}>
                 <Users size={16} /> {t('tab_users')}
             </button>
         )}
         {/* Code: Dev Only */}
         {isDev && (
-            <button onClick={() => setActiveTab('code')} className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold whitespace-nowrap transition-all ${activeTab === 'code' ? 'bg-orange-600 text-white shadow-lg shadow-orange-900/50' : 'bg-[#1E1F20] text-gray-400 hover:bg-[#2b2d30] border border-[#444746]'}`}>
+            <button onClick={() => setActiveTab('code')} className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold whitespace-nowrap transition-all ${activeTab === 'code' ? 'bg-primary-accent text-white shadow-lg shadow-amber-900/50' : 'bg-primary-card text-gray-400 hover:bg-zinc-800 border border-primary-border'}`}>
                 <Code size={16} /> {t('tab_code')}
             </button>
         )}
@@ -810,24 +810,24 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                  {/* Daily Total (Admin/Dev Only) */}
                  {isAdmin ? (
-                     <div className="bg-[#1E1F20] p-6 rounded-3xl border border-[#444746] relative overflow-hidden group hover:border-orange-500/30 transition-all">
+                     <div className="bg-primary-card p-6 rounded-2xl border border-primary-border relative overflow-hidden group hover:border-primary-accent/30 transition-all">
                         <div className="absolute right-0 top-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
                             <Calendar size={100} />
                         </div>
                         <div className="relative z-10">
                             <span className="text-gray-400 text-sm font-bold uppercase tracking-wider">{t('summary_today')}</span>
-                            <div className="text-xs text-orange-400 font-medium mt-1 mb-2">{t('time_range_today')}</div>
+                            <div className="text-xs text-amber-400 font-medium mt-1 mb-2">{t('time_range_today')}</div>
                             <div className="flex items-baseline gap-2 mt-1">
                                 <span className="text-3xl font-bold text-white tracking-tight">฿ {totalDailyAmount.toLocaleString('th-TH', { minimumFractionDigits: 2 })}</span>
                             </div>
-                            <div className="mt-4 flex items-center gap-2 text-sm text-gray-400 font-medium bg-[#2b2d30] w-fit px-3 py-1 rounded-full border border-[#444746]">
-                                <Tag size={14} className="text-orange-500"/> {totalDailyCount} {t('entries')}
+                            <div className="mt-4 flex items-center gap-2 text-sm text-gray-400 font-medium bg-zinc-800 w-fit px-3 py-1 rounded-full border border-primary-border">
+                                <Tag size={14} className="text-primary-accent"/> {totalDailyCount} {t('entries')}
                             </div>
                         </div>
                      </div>
                  ) : (
                      // Search Bar Full Width for Staff
-                     <div className="md:col-span-2 bg-[#1E1F20] p-6 rounded-3xl border border-[#444746] flex flex-col justify-center">
+                     <div className="md:col-span-2 bg-primary-card p-6 rounded-2xl border border-primary-border flex flex-col justify-center">
                          <h3 className="text-lg font-bold text-white mb-2">{t('search')}</h3>
                          <div className="relative">
                             <input 
@@ -835,7 +835,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
                                 placeholder={t('search_placeholder')}
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full bg-[#2b2d30] border border-[#444746] text-white px-5 py-4 pl-12 rounded-xl focus:outline-none focus:border-orange-500 transition-all placeholder:text-gray-500"
+                                className="w-full bg-zinc-800 border border-primary-border text-white px-5 py-4 pl-12 rounded-xl focus:outline-none focus:border-primary-accent transition-all placeholder:text-gray-500"
                             />
                             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500" size={20} />
                          </div>
@@ -844,15 +844,15 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
 
                  {/* Monthly Total (Everyone sees this or maybe just Admin? Keeping consistent with request "Staff sees Search full width") */}
                  {isAdmin && (
-                     <div className="bg-[#1E1F20] p-6 rounded-3xl border border-[#444746] relative overflow-hidden group hover:border-orange-500/30 transition-all">
+                     <div className="bg-primary-card p-6 rounded-2xl border border-primary-border relative overflow-hidden group hover:border-primary-accent/30 transition-all">
                         <div className="absolute right-0 top-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
                             <FileSpreadsheet size={100} />
                         </div>
                         <div className="relative z-10">
                             <span className="text-gray-400 text-sm font-bold uppercase tracking-wider">{t('summary_month')}</span>
                             <div className="text-3xl font-bold text-white mt-2 tracking-tight">฿ {totalMonthlyAmount.toLocaleString('th-TH', { minimumFractionDigits: 2 })}</div>
-                            <div className="mt-4 flex items-center gap-2 text-sm text-gray-400 font-medium bg-[#2b2d30] w-fit px-3 py-1 rounded-full border border-[#444746]">
-                                <Tag size={14} className="text-orange-500"/> {totalMonthlyCount} {t('entries')}
+                            <div className="mt-4 flex items-center gap-2 text-sm text-gray-400 font-medium bg-zinc-800 w-fit px-3 py-1 rounded-full border border-primary-border">
+                                <Tag size={14} className="text-primary-accent"/> {totalMonthlyCount} {t('entries')}
                             </div>
                         </div>
                      </div>
@@ -869,7 +869,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
                             placeholder={t('search_placeholder')}
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full bg-[#1E1F20] border border-[#444746] text-white px-5 py-3 pl-12 rounded-xl focus:outline-none focus:border-orange-500 transition-all placeholder:text-gray-500"
+                            className="w-full bg-primary-card border border-primary-border text-white px-5 py-3 pl-12 rounded-xl focus:outline-none focus:border-primary-accent transition-all placeholder:text-gray-500"
                         />
                         <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500" size={20} />
                     </div>
@@ -879,16 +879,16 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
                 <button 
                     onClick={handleExportCSV}
                     disabled={filteredTransactions.length === 0}
-                    className="w-full sm:w-auto px-6 py-3 bg-[#1E1F20] hover:bg-[#2b2d30] border border-[#444746] text-gray-300 rounded-xl font-bold flex items-center justify-center gap-2 transition-all disabled:opacity-50 hover:text-white hover:border-gray-500"
+                    className="w-full sm:w-auto px-6 py-3 bg-primary-card hover:bg-zinc-800 border border-primary-border text-gray-300 rounded-xl font-bold flex items-center justify-center gap-2 transition-all disabled:opacity-50 hover:text-white hover:border-gray-500"
                 >
                     <FileSpreadsheet size={18} /> <span className="whitespace-nowrap">{t('export_csv')}</span>
                 </button>
             </div>
 
             {/* Transactions List */}
-            <div className="bg-[#1E1F20] rounded-3xl border border-[#444746] overflow-hidden shadow-xl min-h-[400px]">
+            <div className="bg-primary-card rounded-2xl border border-primary-border overflow-hidden shadow-xl min-h-[400px]">
                 {/* Header Row (Desktop) */}
-                <div className="hidden md:grid grid-cols-12 gap-4 p-5 bg-[#2b2d30] border-b border-[#444746] text-gray-400 font-bold text-xs uppercase tracking-wider">
+                <div className="hidden md:grid grid-cols-12 gap-4 p-5 bg-zinc-800 border-b border-primary-border text-gray-400 font-bold text-xs uppercase tracking-wider">
                     <div className="col-span-2">{t('date')}</div>
                     <div className="col-span-3">{t('sender')}</div>
                     <div className="col-span-2 text-right">{t('amount')}</div>
@@ -899,7 +899,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
                 <div className="divide-y divide-[#2b2d30]">
                     {paginatedTransactions.length > 0 ? (
                         paginatedTransactions.map((tx) => (
-                            <div key={tx.id} className="group hover:bg-[#2b2d30]/50 transition-colors">
+                            <div key={tx.id} className="group hover:bg-zinc-800/50 transition-colors">
                                 {/* Desktop View */}
                                 <div className="hidden md:grid grid-cols-12 gap-4 p-5 items-center">
                                     <div className="col-span-2 text-gray-400 text-sm font-medium">{formatDate(tx.date)}</div>
@@ -917,7 +917,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
                                             <button 
                                                 onClick={(e) => handleStatusClick(e, tx)}
                                                 disabled={isStaff && tx.status !== 'normal'}
-                                                className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider border transition-all cursor-pointer flex items-center gap-1 ${
+                                                className={`px-3 py-1.5 rounded-lg text-sm font-medium tracking-wider border transition-all cursor-pointer flex items-center gap-1 ${
                                                     tx.status === 'verified' ? 'bg-green-500/10 border-green-500/30 text-green-400' :
                                                     tx.status === 'issue' ? 'bg-red-500/10 border-red-500/30 text-red-400' :
                                                     tx.status === 'refund' ? 'bg-yellow-500/10 border-yellow-500/30 text-yellow-400' :
@@ -930,12 +930,12 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
                                             
                                             {/* Dropdown */}
                                             {activeDropdown === tx.id && (
-                                                <div className="absolute top-full right-0 mt-2 w-32 bg-[#353639] border border-[#444746] rounded-xl shadow-2xl z-50 overflow-hidden py-1 animate-in fade-in zoom-in-95 duration-200">
+                                                <div className="absolute top-full right-0 mt-2 w-32 bg-primary-bg border border-primary-border rounded-xl shadow-2xl z-50 overflow-hidden py-1 animate-in fade-in zoom-in-95 duration-200">
                                                     {['normal', 'verified', 'issue', 'refund'].map(status => (
                                                         <button
                                                             key={status}
                                                             onClick={() => handleStatusChange(tx.id, status)}
-                                                            className={`w-full text-left px-4 py-2 text-xs font-medium hover:bg-[#444746] transition-colors ${tx.status === status ? 'text-orange-500' : 'text-gray-300'}`}
+                                                            className={`w-full text-left px-4 py-2 text-xs font-medium hover:bg-[#444746] transition-colors ${tx.status === status ? 'text-primary-accent' : 'text-gray-300'}`}
                                                         >
                                                             {t(`status_${status}`)}
                                                         </button>
@@ -999,7 +999,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
                                             <button 
                                                 onClick={(e) => handleStatusClick(e, tx)}
                                                 disabled={isStaff && tx.status !== 'normal'}
-                                                className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider border flex items-center gap-1 ${
+                                                className={`px-3 py-1.5 rounded-lg text-sm font-medium tracking-wider border flex items-center gap-1 ${
                                                     tx.status === 'verified' ? 'bg-green-500/10 border-green-500/30 text-green-400' :
                                                     tx.status === 'issue' ? 'bg-red-500/10 border-red-500/30 text-red-400' :
                                                     tx.status === 'refund' ? 'bg-yellow-500/10 border-yellow-500/30 text-yellow-400' :
@@ -1010,12 +1010,12 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
                                                 {(isStaff && tx.status !== 'normal') && <LockKeyhole size={10} />}
                                             </button>
                                             {activeDropdown === tx.id && (
-                                                <div className="absolute bottom-full right-0 mb-2 w-32 bg-[#353639] border border-[#444746] rounded-xl shadow-2xl z-50 overflow-hidden py-1">
+                                                <div className="absolute bottom-full right-0 mb-2 w-32 bg-primary-bg border border-primary-border rounded-xl shadow-2xl z-50 overflow-hidden py-1">
                                                     {['normal', 'verified', 'issue', 'refund'].map(status => (
                                                         <button
                                                             key={status}
                                                             onClick={() => handleStatusChange(tx.id, status)}
-                                                            className={`w-full text-left px-4 py-2 text-xs font-medium active:bg-[#444746] ${tx.status === status ? 'text-orange-500' : 'text-gray-300'}`}
+                                                            className={`w-full text-left px-4 py-2 text-xs font-medium active:bg-[#444746] ${tx.status === status ? 'text-primary-accent' : 'text-gray-300'}`}
                                                         >
                                                             {t(`status_${status}`)}
                                                         </button>
@@ -1038,7 +1038,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
 
                 {/* Pagination */}
                 {totalPages > 1 && (
-                    <div className="p-4 bg-[#1E1F20] border-t border-[#444746] flex justify-between items-center">
+                    <div className="p-4 bg-primary-card border-t border-primary-border flex justify-between items-center">
                         <span className="text-xs text-gray-500 font-medium">
                             {t('page')} {currentPage} {t('of')} {totalPages}
                         </span>
@@ -1046,14 +1046,14 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
                             <button 
                                 onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                                 disabled={currentPage === 1}
-                                className="p-2 rounded-lg bg-[#2b2d30] border border-[#444746] text-gray-400 disabled:opacity-30 hover:bg-[#383a3e]"
+                                className="p-2 rounded-lg bg-zinc-800 border border-primary-border text-gray-400 disabled:opacity-30 hover:bg-[#383a3e]"
                             >
                                 <ChevronLeft size={16} />
                             </button>
                             <button 
                                 onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                                 disabled={currentPage === totalPages}
-                                className="p-2 rounded-lg bg-[#2b2d30] border border-[#444746] text-gray-400 disabled:opacity-30 hover:bg-[#383a3e]"
+                                className="p-2 rounded-lg bg-zinc-800 border border-primary-border text-gray-400 disabled:opacity-30 hover:bg-[#383a3e]"
                             >
                                 <ChevronRight size={16} />
                             </button>
@@ -1064,8 +1064,8 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
             
             {/* Configuration Section (Dev Only) */}
             {isDev && (
-                <div className="bg-[#1E1F20] rounded-3xl border border-[#444746] overflow-hidden">
-                    <div className="p-6 border-b border-[#444746] flex items-center gap-3">
+                <div className="bg-primary-card rounded-2xl border border-primary-border overflow-hidden">
+                    <div className="p-6 border-b border-primary-border flex items-center gap-3">
                          <div className="p-2 bg-purple-500/10 rounded-lg text-purple-400 border border-purple-500/20"><Server size={20} /></div>
                          <h3 className="text-lg font-bold text-gray-100">{t('config_sim')}</h3>
                     </div>
@@ -1077,10 +1077,10 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
                                  <div>
                                      <label className="text-xs text-gray-500 block mb-1">Webhook Endpoint URL:</label>
                                      <div className="flex gap-2">
-                                         <code className="flex-1 bg-[#1E1F20] p-3 rounded-lg text-green-400 font-mono text-xs border border-[#2b2d30] break-all">
+                                         <code className="flex-1 bg-primary-card p-3 rounded-lg text-green-400 font-mono text-xs border border-[#2b2d30] break-all">
                                              {dataSource === 'live' ? `${currentOrigin}/api/webhook/truemoney` : 'https://api.yourwebsite.com/webhook/truemoney'}
                                          </code>
-                                         <button onClick={handleCopyEndpoint} className="bg-[#2b2d30] hover:bg-[#383a3e] text-white p-3 rounded-lg border border-[#444746] transition-colors">
+                                         <button onClick={handleCopyEndpoint} className="bg-zinc-800 hover:bg-[#383a3e] text-white p-3 rounded-lg border border-primary-border transition-colors">
                                              {copied ? <Check size={16} className="text-green-500"/> : <Clipboard size={16} />}
                                          </button>
                                      </div>
@@ -1104,7 +1104,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
                                          value={verificationSecret}
                                          onChange={(e) => setVerificationSecret(e.target.value)}
                                          placeholder={t('verification_placeholder')}
-                                         className="flex-1 bg-[#2b2d30] border border-[#444746] text-white px-4 py-3 rounded-xl focus:outline-none focus:border-orange-500 text-sm"
+                                         className="flex-1 bg-zinc-800 border border-primary-border text-white px-4 py-3 rounded-xl focus:outline-none focus:border-primary-accent text-sm"
                                      />
                                      <button onClick={handleSaveSecret} className="bg-green-600 hover:bg-green-500 text-white px-4 rounded-xl font-bold transition-colors"><Check size={18} /></button>
                                  </div>
@@ -1118,7 +1118,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
                                          value={serviceToken}
                                          onChange={(e) => setServiceToken(e.target.value)}
                                          placeholder={t('service_token_placeholder')}
-                                         className="flex-1 bg-[#2b2d30] border border-[#444746] text-white px-4 py-3 rounded-xl focus:outline-none focus:border-orange-500 text-sm"
+                                         className="flex-1 bg-zinc-800 border border-primary-border text-white px-4 py-3 rounded-xl focus:outline-none focus:border-primary-accent text-sm"
                                      />
                                      <button onClick={handleSaveServiceToken} className="bg-green-600 hover:bg-green-500 text-white px-4 rounded-xl font-bold transition-colors"><Check size={18} /></button>
                                  </div>
@@ -1130,9 +1130,9 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
                              <h4 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4">{t('simulator')}</h4>
                              <button 
                                 onClick={handleSimulateWebhook}
-                                className="w-full bg-[#2b2d30] hover:bg-[#383a3e] border border-[#444746] hover:border-gray-500 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-3 transition-all group"
+                                className="w-full bg-zinc-800 hover:bg-[#383a3e] border border-primary-border hover:border-gray-500 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-3 transition-all group"
                              >
-                                <Play size={20} className="text-orange-500 group-hover:scale-110 transition-transform" /> {t('simulate_btn')}
+                                <Play size={20} className="text-primary-accent group-hover:scale-110 transition-transform" /> {t('simulate_btn')}
                              </button>
                              <div className="mt-2 text-center text-xs text-gray-500">{t('simulate_desc')} <strong>{dataSource === 'mock' ? 'Local' : 'Live API'}</strong></div>
                          </div>
@@ -1159,9 +1159,9 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
           <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Daily Report Chart */}
-                  <div className="bg-[#1E1F20] p-6 rounded-3xl border border-[#444746] md:col-span-2">
+                  <div className="bg-primary-card p-6 rounded-2xl border border-primary-border md:col-span-2">
                       <h3 className="text-lg font-bold text-gray-100 mb-6 flex items-center gap-2">
-                          <BarChart3 size={20} className="text-orange-500"/> {t('report_daily_income')}
+                          <BarChart3 size={20} className="text-primary-accent"/> {t('report_daily_income')}
                       </h3>
                       <div className="h-[300px] w-full">
                           <ResponsiveContainer width="100%" height="100%">
@@ -1181,8 +1181,8 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
                   </div>
                   
                   {/* Monthly Summary Table */}
-                  <div className="bg-[#1E1F20] rounded-3xl border border-[#444746] overflow-hidden h-fit">
-                      <div className="p-5 border-b border-[#444746] bg-[#2b2d30]">
+                  <div className="bg-primary-card rounded-2xl border border-primary-border overflow-hidden h-fit">
+                      <div className="p-5 border-b border-primary-border bg-zinc-800">
                           <h3 className="text-base font-bold text-gray-100">{t('summary_month_3')}</h3>
                       </div>
                       <div className="divide-y divide-[#2b2d30]">
@@ -1192,24 +1192,24 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
                               <div className="text-right">{t('report_total')}</div>
                           </div>
                           {monthlyReportData.map((m, i) => (
-                              <div key={i} className="grid grid-cols-3 p-4 text-sm hover:bg-[#2b2d30]/50 transition-colors">
+                              <div key={i} className="grid grid-cols-3 p-4 text-sm hover:bg-zinc-800/50 transition-colors">
                                   <div className="font-bold text-gray-300">{m.name}</div>
                                   <div className="text-center text-gray-400">{m.count}</div>
-                                  <div className="text-right font-bold text-orange-400">฿ {m.total.toLocaleString()}</div>
+                                  <div className="text-right font-bold text-amber-400">฿ {m.total.toLocaleString()}</div>
                               </div>
                           ))}
                       </div>
                   </div>
 
                   {/* Daily Detail Table */}
-                  <div className="bg-[#1E1F20] rounded-3xl border border-[#444746] overflow-hidden max-h-[400px] flex flex-col">
-                      <div className="p-5 border-b border-[#444746] bg-[#2b2d30] shrink-0">
+                  <div className="bg-primary-card rounded-2xl border border-primary-border overflow-hidden max-h-[400px] flex flex-col">
+                      <div className="p-5 border-b border-primary-border bg-zinc-800 shrink-0">
                           <h3 className="text-base font-bold text-gray-100">{t('summary_today')} (History)</h3>
                       </div>
                       <div className="overflow-y-auto">
                         <div className="divide-y divide-[#2b2d30]">
                             {dailyReportData.map((d, i) => (
-                                <div key={i} className="flex justify-between items-center p-4 hover:bg-[#2b2d30]/50 transition-colors">
+                                <div key={i} className="flex justify-between items-center p-4 hover:bg-zinc-800/50 transition-colors">
                                     <div className="flex flex-col">
                                         <span className="font-bold text-gray-300 text-sm">{d.name}</span>
                                         <span className="text-xs text-gray-500">{d.count} items</span>
@@ -1229,7 +1229,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
 
               {/* Shutdown / Maintenance Card */}
-              <div className={`bg-[#1E1F20] p-6 rounded-3xl border transition-all ${maintenanceMode ? 'border-red-500/50 bg-red-500/5' : 'border-[#444746] hover:border-red-500/30'}`}>
+              <div className={`bg-primary-card p-6 rounded-2xl border transition-all ${maintenanceMode ? 'border-red-500/50 bg-red-500/5' : 'border-primary-border hover:border-red-500/30'}`}>
                   <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-4 transition-colors ${maintenanceMode ? 'bg-red-500/20 border border-red-500/30' : 'bg-gray-700/30'}`}>
                       <PowerOff className={maintenanceMode ? 'text-red-400' : 'text-gray-500'} size={24} />
                   </div>
@@ -1253,15 +1253,15 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
                   </button>
               </div>
 
-              <div className="bg-[#1E1F20] p-6 rounded-3xl border border-[#444746] hover:border-orange-500/50 transition-all group">
-                  <div className="w-12 h-12 rounded-full bg-orange-500/10 flex items-center justify-center mb-4 group-hover:bg-orange-500/20 transition-colors">
-                      <BellRing className="text-orange-500" size={24} />
+              <div className="bg-primary-card p-6 rounded-2xl border border-primary-border hover:border-primary-accent/50 transition-all group">
+                  <div className="w-12 h-12 rounded-full bg-primary-accent/10 flex items-center justify-center mb-4 group-hover:bg-primary-accent/20 transition-colors">
+                      <BellRing className="text-primary-accent" size={24} />
                   </div>
                   <h3 className="font-bold text-gray-100 mb-1">{t('svc_incoming')}</h3>
                   <p className="text-xs text-gray-500 mb-4">{t('svc_incoming_desc')}</p>
                   <span className="inline-block px-3 py-1 rounded-full bg-green-500/10 text-green-400 text-xs font-bold border border-green-500/20">{t('active')}</span>
               </div>
-              <div className="bg-[#1E1F20] p-6 rounded-3xl border border-[#444746] hover:border-orange-500/50 transition-all group opacity-60">
+              <div className="bg-primary-card p-6 rounded-2xl border border-primary-border hover:border-primary-accent/50 transition-all group opacity-60">
                    <div className="w-12 h-12 rounded-full bg-gray-700/30 flex items-center justify-center mb-4">
                       <Smartphone className="text-gray-500" size={24} />
                   </div>
@@ -1269,17 +1269,17 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
                   <p className="text-xs text-gray-500 mb-4">{t('svc_outgoing_desc')}</p>
                   <span className="inline-block px-3 py-1 rounded-full bg-gray-700/50 text-gray-400 text-xs font-bold border border-gray-600">{t('soon')}</span>
               </div>
-              <div className="bg-[#1E1F20] p-6 rounded-3xl border border-[#444746] hover:border-orange-500/50 transition-all group">
-                   <div className="w-12 h-12 rounded-full bg-orange-500/10 flex items-center justify-center mb-4 group-hover:bg-orange-500/20 transition-colors">
-                      <Wallet className="text-orange-500" size={24} />
+              <div className="bg-primary-card p-6 rounded-2xl border border-primary-border hover:border-primary-accent/50 transition-all group">
+                   <div className="w-12 h-12 rounded-full bg-primary-accent/10 flex items-center justify-center mb-4 group-hover:bg-primary-accent/20 transition-colors">
+                      <Wallet className="text-primary-accent" size={24} />
                   </div>
                   <h3 className="font-bold text-gray-100 mb-1">{t('svc_balance')}</h3>
                   <p className="text-xs text-gray-500 mb-4">{t('svc_balance_desc')}</p>
-                  <button onClick={handleCheckBalance} className="text-xs font-bold text-orange-500 hover:text-orange-400">{t('demo')}</button>
+                  <button onClick={handleCheckBalance} className="text-xs font-bold text-primary-accent hover:text-amber-400">{t('demo')}</button>
               </div>
-              <div className="bg-[#1E1F20] p-6 rounded-3xl border border-[#444746] hover:border-orange-500/50 transition-all group">
-                   <div className="w-12 h-12 rounded-full bg-orange-500/10 flex items-center justify-center mb-4 group-hover:bg-orange-500/20 transition-colors">
-                      <History className="text-orange-500" size={24} />
+              <div className="bg-primary-card p-6 rounded-2xl border border-primary-border hover:border-primary-accent/50 transition-all group">
+                   <div className="w-12 h-12 rounded-full bg-primary-accent/10 flex items-center justify-center mb-4 group-hover:bg-primary-accent/20 transition-colors">
+                      <History className="text-primary-accent" size={24} />
                   </div>
                   <h3 className="font-bold text-gray-100 mb-1">{t('svc_last_tx')}</h3>
                   <p className="text-xs text-gray-500 mb-4">{t('svc_last_tx_desc')}</p>
@@ -1293,14 +1293,14 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
           <div className="space-y-6">
               <div className="flex justify-between items-center">
                   <h3 className="text-xl font-bold text-gray-100">{t('user_management')}</h3>
-                  <button onClick={() => openUserModal()} className="bg-orange-600 hover:bg-orange-500 text-white px-4 py-2 rounded-xl font-bold text-sm flex items-center gap-2">
+                  <button onClick={() => openUserModal()} className="bg-primary-accent hover:bg-primary-accent text-white px-4 py-2 rounded-xl font-bold text-sm flex items-center gap-2">
                       <Plus size={16} /> {t('add_user')}
                   </button>
               </div>
               
-              <div className="bg-[#1E1F20] rounded-3xl border border-[#444746] overflow-hidden">
+              <div className="bg-primary-card rounded-2xl border border-primary-border overflow-hidden">
                   <table className="w-full text-left">
-                      <thead className="bg-[#2b2d30] border-b border-[#444746]">
+                      <thead className="bg-zinc-800 border-b border-primary-border">
                           <tr>
                               <th className="p-5 text-xs font-bold text-gray-400 uppercase tracking-wider">{t('username')}</th>
                               <th className="p-5 text-xs font-bold text-gray-400 uppercase tracking-wider">{t('role')}</th>
@@ -1311,12 +1311,12 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
                           {usersList
                               .filter(u => isDev || u.role !== 'dev') // Admin hides Devs
                               .map(u => (
-                              <tr key={u.id} className="hover:bg-[#2b2d30]/50 transition-colors">
+                              <tr key={u.id} className="hover:bg-zinc-800/50 transition-colors">
                                   <td className="p-5 font-medium text-gray-200">{u.username}</td>
                                   <td className="p-5">
-                                      <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase border ${
+                                      <span className={`px-3 py-1 rounded-full text-sm font-medium border ${
                                           u.role === 'dev' ? 'bg-purple-500/10 text-purple-400 border-purple-500/20' :
-                                          u.role === 'admin' ? 'bg-orange-500/10 text-orange-400 border-orange-500/20' :
+                                          u.role === 'admin' ? 'bg-primary-accent/10 text-amber-400 border-primary-accent/20' :
                                           'bg-blue-500/10 text-blue-400 border-blue-500/20'
                                       }`}>
                                           {t(`role_${u.role}`)}
@@ -1339,8 +1339,8 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
 
       {/* CODE TAB (Dev Only) */}
       {activeTab === 'code' && isDev && (
-        <div className="bg-[#1E1F20] rounded-3xl border border-[#444746] overflow-hidden">
-            <div className="p-4 bg-[#2b2d30] border-b border-[#444746] flex justify-between items-center">
+        <div className="bg-primary-card rounded-2xl border border-primary-border overflow-hidden">
+            <div className="p-4 bg-zinc-800 border-b border-primary-border flex justify-between items-center">
                 <span className="text-xs font-mono text-gray-400">api/index.js (Backend Logic)</span>
                 <button onClick={handleCopyBackendCode} className="text-xs text-gray-400 hover:text-white flex items-center gap-1">
                     {codeCopied ? <Check size={14}/> : <Clipboard size={14}/>} Copy
@@ -1375,8 +1375,8 @@ app.post('/api/webhook/truemoney', async (req, res) => {
       {/* User Modal */}
       {isUserModalOpen && (
           <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 backdrop-blur-sm p-4">
-               <div className="bg-[#1E1F20] rounded-3xl shadow-2xl border border-[#444746] w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200">
-                  <div className="p-6 border-b border-[#444746] flex justify-between items-center bg-[#2b2d30]">
+               <div className="bg-primary-card rounded-2xl shadow-2xl border border-primary-border w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200">
+                  <div className="p-6 border-b border-primary-border flex justify-between items-center bg-zinc-800">
                       <h3 className="text-lg font-bold text-gray-100">{editingUser ? t('edit_user') : t('new_user')}</h3>
                       <button onClick={() => setIsUserModalOpen(false)} className="text-gray-400 hover:text-white"><X size={20}/></button>
                   </div>
@@ -1384,27 +1384,27 @@ app.post('/api/webhook/truemoney', async (req, res) => {
                        {userFormError && <div className="bg-red-500/10 text-red-400 text-sm p-3 rounded-xl border border-red-500/20">{userFormError}</div>}
                        <div>
                            <label className="block text-xs font-bold text-gray-400 uppercase mb-1">{t('username')}</label>
-                           <input type="text" required value={userForm.username} onChange={e => setUserForm({...userForm, username: e.target.value})} className="w-full bg-[#2b2d30] border border-[#444746] text-white px-4 py-3 rounded-xl focus:outline-none focus:border-orange-500" />
+                           <input type="text" required value={userForm.username} onChange={e => setUserForm({...userForm, username: e.target.value})} className="w-full bg-zinc-800 border border-primary-border text-white px-4 py-3 rounded-xl focus:outline-none focus:border-primary-accent" />
                        </div>
                        <div>
                            <label className="block text-xs font-bold text-gray-400 uppercase mb-1">{t('password')}</label>
-                           <input type="text" required={!editingUser} value={userForm.password} onChange={e => setUserForm({...userForm, password: e.target.value})} placeholder={editingUser ? "(Unchanged)" : ""} className="w-full bg-[#2b2d30] border border-[#444746] text-white px-4 py-3 rounded-xl focus:outline-none focus:border-orange-500" />
+                           <input type="text" required={!editingUser} value={userForm.password} onChange={e => setUserForm({...userForm, password: e.target.value})} placeholder={editingUser ? "(Unchanged)" : ""} className="w-full bg-zinc-800 border border-primary-border text-white px-4 py-3 rounded-xl focus:outline-none focus:border-primary-accent" />
                        </div>
                        <div>
                            <label className="block text-xs font-bold text-gray-400 uppercase mb-1">{t('role')}</label>
                            <div className="grid grid-cols-3 gap-2">
                                {/* Dev Role: Only visible if current user is Dev */}
                                {isDev && (
-                                   <button type="button" onClick={() => setUserForm({...userForm, role: 'dev'})} className={`px-2 py-2 rounded-lg text-xs font-bold border ${userForm.role === 'dev' ? 'bg-purple-500/20 border-purple-500 text-purple-400' : 'bg-[#2b2d30] border-[#444746] text-gray-400'}`}>Dev</button>
+                                   <button type="button" onClick={() => setUserForm({...userForm, role: 'dev'})} className={`px-2 py-2 rounded-lg text-xs font-bold border ${userForm.role === 'dev' ? 'bg-purple-500/20 border-purple-500 text-purple-400' : 'bg-zinc-800 border-primary-border text-gray-400'}`}>Dev</button>
                                )}
                                {/* Admin Role: Visible if Dev OR Admin */}
                                {(isDev || isAdmin) && (
-                                   <button type="button" onClick={() => setUserForm({...userForm, role: 'admin'})} className={`px-2 py-2 rounded-lg text-xs font-bold border ${userForm.role === 'admin' ? 'bg-orange-500/20 border-orange-500 text-orange-400' : 'bg-[#2b2d30] border-[#444746] text-gray-400'}`}>Admin</button>
+                                   <button type="button" onClick={() => setUserForm({...userForm, role: 'admin'})} className={`px-2 py-2 rounded-lg text-xs font-bold border ${userForm.role === 'admin' ? 'bg-primary-accent/20 border-primary-accent text-amber-400' : 'bg-zinc-800 border-primary-border text-gray-400'}`}>Admin</button>
                                )}
-                               <button type="button" onClick={() => setUserForm({...userForm, role: 'staff'})} className={`px-2 py-2 rounded-lg text-xs font-bold border ${userForm.role === 'staff' ? 'bg-blue-500/20 border-blue-500 text-blue-400' : 'bg-[#2b2d30] border-[#444746] text-gray-400'}`}>Staff</button>
+                               <button type="button" onClick={() => setUserForm({...userForm, role: 'staff'})} className={`px-2 py-2 rounded-lg text-xs font-bold border ${userForm.role === 'staff' ? 'bg-blue-500/20 border-blue-500 text-blue-400' : 'bg-zinc-800 border-primary-border text-gray-400'}`}>Staff</button>
                            </div>
                        </div>
-                       <button type="submit" className="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold py-3 rounded-xl mt-4">{t('save_user')}</button>
+                       <button type="submit" className="w-full bg-primary-accent hover:bg-primary-accent text-white font-bold py-3 rounded-xl mt-4">{t('save_user')}</button>
                   </form>
                </div>
           </div>

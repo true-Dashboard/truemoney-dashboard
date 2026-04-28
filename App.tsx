@@ -11,7 +11,7 @@ import { checkSiteStatus } from './services/apiService';
 
 function MaintenancePage() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-[#0f1113] text-white select-none">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-primary-bg text-white select-none">
       <div className="text-center space-y-6 p-8 max-w-md">
         <div className="flex justify-center">
           <div className="bg-red-500/10 p-6 rounded-3xl border border-red-500/20">
@@ -26,7 +26,7 @@ function MaintenancePage() {
           </p>
         </div>
         <div className="pt-2">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1E1F20] border border-[#444746] text-xs text-gray-500 font-mono">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-card border border-primary-border text-xs text-gray-500 font-mono">
             <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
             TrueMoney Dashboard — Offline
           </div>
@@ -119,8 +119,8 @@ function AppContent() {
 
   if (siteStatus === 'loading') {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-[#0f1113]">
-        <div className="w-8 h-8 border-2 border-orange-500/30 border-t-orange-500 rounded-full animate-spin"></div>
+      <div className="flex items-center justify-center min-h-screen bg-primary-bg">
+        <div className="w-8 h-8 border-2 border-primary-accent/30 border-t-primary-accent rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -130,7 +130,7 @@ function AppContent() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#353639]">
+    <div className="flex flex-col min-h-screen bg-primary-bg">
       <Header user={user} onLogout={handleLogout} onChangePasswordClick={handleChangePasswordClick} />
       
       <main className="flex-grow">
@@ -146,10 +146,10 @@ function AppContent() {
       {/* Change Password Modal */}
       {isPasswordModalOpen && (
           <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 backdrop-blur-sm p-4">
-               <div className="bg-[#1e293b] rounded-lg shadow-2xl border border-gray-700 w-full max-w-sm overflow-hidden animate-in zoom-in-95 duration-200">
-                  <div className="px-6 py-4 border-b border-gray-700 flex justify-between items-center">
+               <div className="bg-primary-card rounded-lg shadow-2xl border border-primary-border w-full max-w-sm overflow-hidden animate-in zoom-in-95 duration-200">
+                  <div className="px-6 py-4 border-b border-primary-border flex justify-between items-center">
                       <h3 className="text-white font-semibold flex items-center gap-2"><Lock size={16}/> {t('change_password')}</h3>
-                      <button onClick={() => setIsPasswordModalOpen(false)} className="text-gray-400 hover:text-white">
+                      <button onClick={() => setIsPasswordModalOpen(false)} className="text-gray-400 hover:text-white transition-colors">
                           <X size={20} />
                       </button>
                   </div>
@@ -165,7 +165,7 @@ function AppContent() {
                               type="text" 
                               value={newPassword}
                               onChange={(e) => setNewPassword(e.target.value)}
-                              className="w-full bg-[#0f172a] border border-gray-600 text-white px-3 py-2 rounded focus:outline-none focus:border-orange-500"
+                              className="w-full bg-primary-bg border border-primary-border text-white px-3 py-2 rounded focus:outline-none focus:border-primary-accent"
                               autoFocus
                           />
                       </div>
@@ -173,13 +173,13 @@ function AppContent() {
                           <button 
                             type="button" 
                             onClick={() => setIsPasswordModalOpen(false)}
-                            className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded text-sm transition-colors"
+                            className="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 text-white rounded text-sm transition-colors"
                           >
                               {t('cancel')}
                           </button>
                           <button 
                             type="submit" 
-                            className="px-4 py-2 bg-orange-600 hover:bg-orange-500 text-white rounded text-sm transition-colors"
+                            className="px-4 py-2 bg-primary-accent hover:bg-amber-400 text-zinc-950 font-medium rounded text-sm transition-colors"
                           >
                               {t('save')}
                           </button>

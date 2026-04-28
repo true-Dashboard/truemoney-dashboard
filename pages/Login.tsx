@@ -46,15 +46,15 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-80px)] p-4 bg-[#353639]">
+    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-80px)] p-4 bg-primary-bg">
       
-      <div className="bg-[#1E1F20] p-10 rounded-[2rem] shadow-2xl border border-[#444746] w-full max-w-md relative z-10 mx-4">
+      <div className="bg-primary-card/80 backdrop-blur-xl p-10 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-primary-border w-full max-w-md relative z-10 mx-4">
         
         <div className="flex flex-col items-center mb-10">
-            <div className="bg-[#2b2d30] p-5 rounded-2xl shadow-inner border border-[#444746] mb-6 text-orange-500">
+            <div className="bg-primary-bg p-5 rounded-2xl shadow-inner border border-primary-border mb-6 text-primary-accent">
                 <Wallet size={48} strokeWidth={1.5} />
             </div>
-            <h2 className="text-3xl font-bold text-gray-100 tracking-tight text-center">TrueMoney <span className="text-orange-500">Dashboard</span></h2>
+            <h2 className="text-2xl font-semibold text-gray-100 tracking-tight text-center">TrueMoney <span className="text-primary-accent">Dashboard</span></h2>
             <p className="text-gray-400 mt-2 text-sm font-medium">Secure Admin Access</p>
         </div>
         
@@ -71,7 +71,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
               type="text" 
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full bg-[#2b2d30] border border-[#444746] text-white text-lg px-5 py-4 rounded-xl focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all placeholder:text-gray-600 shadow-inner"
+              className="w-full bg-primary-bg border border-primary-border text-white text-base px-4 py-3 rounded-xl focus:outline-none focus:border-primary-accent focus:ring-1 focus:ring-primary-accent transition-all placeholder:text-zinc-600 shadow-inner"
               disabled={loading}
               placeholder="Enter your username"
             />
@@ -82,7 +82,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
               type="password" 
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-[#2b2d30] border border-[#444746] text-white text-lg px-5 py-4 rounded-xl focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all placeholder:text-gray-600 shadow-inner"
+              className="w-full bg-primary-bg border border-primary-border text-white text-base px-4 py-3 rounded-xl focus:outline-none focus:border-primary-accent focus:ring-1 focus:ring-primary-accent transition-all placeholder:text-zinc-600 shadow-inner"
               disabled={loading}
               placeholder="••••••••"
             />
@@ -91,7 +91,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
           <button 
             type="submit"
             disabled={loading}
-            className="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold text-lg py-4 rounded-xl transition-all transform active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-orange-900/40 flex items-center justify-center gap-3 group mt-6"
+            className="w-full bg-primary-accent hover:bg-amber-400 text-zinc-950 font-semibold text-base py-3.5 rounded-xl transition-all transform active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-amber-900/20 flex items-center justify-center gap-3 group mt-6"
           >
             {loading ? (
                 <span className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
